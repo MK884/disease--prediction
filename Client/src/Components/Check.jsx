@@ -33,8 +33,7 @@ const Check = () => {
       });
       console.log("Image uploader successfully", res);
       // if(res.class === "mistakenly provided wrong image, probably.") 
-      setResult({ class: res.data.class, confidense: res.data.confidense });
-      console.log(result);
+      setResult({ class: res.data.class, confidence: res.data.confidence });
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +54,7 @@ const Check = () => {
           <>
             <ShowResult
               className={result.class}
-              Confidense={result.confidense}
+              Confidence={result.confidence}
               imageURL={imageURL}
             />
             <Button
