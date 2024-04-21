@@ -58,6 +58,7 @@ async def classify(file: UploadFile = File(...)):
     if confidence > 0.6:
         return {"class": prediction_class,
             "confidence": float(confidence)
+            
             }
     else:
         return {"class": "mistakenly provided wrong image, probably.",
