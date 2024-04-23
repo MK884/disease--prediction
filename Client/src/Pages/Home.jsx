@@ -20,9 +20,11 @@ import Chatbot from "../assets/chatbot.png";
 import Analytics from "../assets/analytics.png";
 import AI from "../assets/AI.png";
 import Skin from "../assets/skin.png";
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const isLargeScreen = useMediaQuery("(min-width: 1280px)"); // Example breakpoint for large screens
 
@@ -149,7 +151,7 @@ const Home = () => {
                     bgcolor: "#fff",
                   },
                 }}
-                onClick={() => setOpen(true)}
+                onClick={() => navigate('/dashboard')}
               >
                 Check Here
               </Button>
@@ -224,7 +226,7 @@ const Home = () => {
                 variant="contained"
                 size="large"
                 color="warning"
-                onClick={() => setOpen(true)}
+                onClick={() => navigate('/dashboard')}
                 sx={{
                   borderRadius: "10px",
                   marginTop: 7,
