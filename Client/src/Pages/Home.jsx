@@ -5,6 +5,7 @@ import {
   IconButton,
   Typography,
   Drawer,
+  useMediaQuery,
 } from "@mui/material";
 import React from "react";
 import Ellips from "../assets/Ellipse.svg";
@@ -16,12 +17,17 @@ import Check from "../Components/Check";
 import Svg from "../Components/Svg";
 import FeatureCard from "../Components/FeatureCard";
 import Chatbot from "../assets/chatbot.png";
-import Recomend from "../assets/recom.png";
+import Analytics from "../assets/analytics.png";
 import AI from "../assets/AI.png";
 import Skin from "../assets/skin.png";
 
 const Home = () => {
   const [open, setOpen] = React.useState(false);
+
+  const isLargeScreen = useMediaQuery("(min-width: 1280px)"); // Example breakpoint for large screens
+
+  // Define the height based on the screen size
+  const height = isLargeScreen ? "40rem" : "22rem"; 
 
   const Features = [
     {
@@ -33,14 +39,14 @@ const Home = () => {
     {
       id: 2,
       icon: Skin,
-      title: "5+ Diseases",
-      desc: "Six Disease Offers",
+      title: "3+ Diseases",
+      desc: "Four Disease Offers",
     },
     {
       id: 3,
-      icon: Recomend,
-      title: "Recommendations",
-      desc: "Get your recommendations",
+      icon: Analytics,
+      title: "Analytics Services",
+      desc: "Get your analytics information",
     },
   ];
   return (
@@ -55,12 +61,13 @@ const Home = () => {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            flexDirection: "row",
+            flexDirection: { lg: 'row', xs:'column'},
+            
           }}
         >
           <Box
             sx={{
-              width: "60%",
+              width: "100%",
               position: "relative",
             }}
           >
@@ -102,7 +109,7 @@ const Home = () => {
                 Health Matters
               </Button>
               <Typography
-                fontSize={54}
+                fontSize={{lg: 54, xs : 44}}
                 fontWeight={600}
                 sx={{
                   color: "#1678F2",
@@ -111,7 +118,7 @@ const Home = () => {
                 One Step Solution
               </Typography>
               <Typography
-                fontSize={54}
+                fontSize={{lg: 54, xs : 44}}
                 fontWeight={600}
                 sx={{
                   color: "black",
@@ -123,6 +130,11 @@ const Home = () => {
               <Typography fontSize={16} fontWeight={400} color="#8A8585">
                 Using AI Check Your Skin Disease and Get Instant Result with
                 minimum Efforts.
+              </Typography>
+              <Typography variant="body2" color="red">
+                Note : The scan result is not a diagnosis. To obtain an accurate
+                diagnosis and a recommendation for treatment - consult your
+                doctor.
               </Typography>
               <Button
                 variant="contained"
@@ -152,99 +164,62 @@ const Home = () => {
             <img
               src={Ellips}
               style={{
-                width: "110%",
+                width: "10%",
                 position: "absolute",
                 zIndex: 0,
               }}
             />
+            
             <img
               src={DocImg}
               style={{
-                height: "40rem",
+                height: height,
               }}
+            
             />
+            
           </Box>
         </Box>
         {/* Hero Section End */}
-        {/* Features Section start */}
-        <Box>
-          <Typography color="#3A8EF6" fontWeight={600} fontSize={24}>
-            FEATURES WE PROVIDE
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              gap: 10,
-              justifyContent: "center",
-              marginTop: "3rem",
-            }}
-          >
-            {Features.map((feature) => (
-              <FeatureCard
-                key={feature.id}
-                title={feature.title}
-                icon={feature.icon}
-                desc={feature.desc}
-              />
-            ))}
-          </Box>
-        </Box>
-        {/* Features Section End */}
-        {/* Info Section start */}
+
+        {/* what do you know start */}
+
         <Box
-          sx={{
-            marginTop: 10,
-          }}
-        >
-          <Box
             sx={{
               display: "flex",
-              flexDirection: "row",
+              flexDirection: { lg: 'row', xs:'column'},
               width: "100%",
               justifyContent: "space-between",
-              marginTop: 20,
+              marginY:'5rem',
+              gap:{lg: 0, xs: '2rem'},
               alignItems: "center",
-            }}
-          >
-            <Box
-              sx={{
-                width: "40%",
-                display: "flex",
-              }}
-            >
-              <img src="https://ai-derm.com/assets/man-318621c4.webp" />
-            </Box>
-            <Box>
-              <Typography fontSize={32} fontWeight={700}>
-                AI Dermatologist can save your life
-              </Typography>
-              <Typography>
-                One of the most dangerous diseases that AI Dermatologist can
-                help identify is skin cancer.
-              </Typography>
-              <Typography fontWeight={700}>
-                Skin cancer is the most common cancer in the United States and
-                worldwide.
-              </Typography>
-            </Box>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              justifyContent: "space-between",
             }}
           >
             <Box>
               <Typography fontSize={32} fontWeight={700}>
                 What Do you Know in 1 minute?
               </Typography>
-              <Typography>
-                Risks Detection and Assessment more than 12 diseases:
+              <Typography variant="body2">
+                Risks Detection and Assessment of 4 diseases:
               </Typography>
+              <Box
+                sx={{
+                  marginTop:'1rem',
+                }}
+              >
+                <Typography ><span style={{
+                  color:'green'
+                }}>✔</span> Eczema</Typography>
+                <Typography><span style={{
+                  color:'green'
+                }}>✔</span> Melanoma</Typography>
+                <Typography><span style={{
+                  color:'green'
+                }}>✔</span> Basal Cell Carcinoma</Typography>
+                <Typography><span style={{
+                  color:'green'
+                }}>✔</span> Melanocytic Nevi</Typography>
+              </Box>
               <Button
                 variant="contained"
                 size="large"
@@ -283,14 +258,81 @@ const Home = () => {
                 <Svg />
               </Box>
             </Box>
+        </Box>
+        {/* what do you know end */}
+        
+        {/* Info Section start */}
+        <Box
+          sx={{
+            marginY: '5rem',
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: { lg: 'row', xs:'column'},
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              marginTop: 20,
+            }}
+          >
+            <Box
+              sx={{
+                width: {lg:'40%', xs:'100%'},
+              }}
+            >
+              <img src="https://ai-derm.com/assets/man-318621c4.webp" />
+            </Box>
+            <Box>
+              <Typography fontSize={32} fontWeight={700}>
+                AI Dermatologist can save your life
+              </Typography>
+              <Typography>
+                One of the most dangerous diseases that AI Dermatologist can
+                help identify is skin cancer.
+              </Typography>
+              <Typography fontWeight={700}>
+                Skin cancer is the most common cancer in the United States and
+                worldwide.
+              </Typography>
+            </Box>
           </Box>
+          
         </Box>
         {/* Info Section End */}
+        {/* Features Section start */}
+        <Box>
+          <Typography color="#3A8EF6" fontWeight={600} fontSize={24}>
+            FEATURES WE PROVIDE
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: { lg: 'row', xs:'column'},
+              flexWrap: "wrap",
+              gap: 10,
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "3rem",
+            }}
+          >
+            {Features.map((feature) => (
+              <FeatureCard
+                key={feature.id}
+                title={feature.title}
+                icon={feature.icon}
+                desc={feature.desc}
+              />
+            ))}
+          </Box>
+        </Box>
+        {/* Features Section End */}
         {/* AI Info Section start */}
         <Box
           sx={{
             display: "flex",
-            flexDirection: "row",
+            flexDirection: { lg: 'row', xs:'column'},
             width: "100%",
             justifyContent: "space-between",
             marginTop: 20,
@@ -301,12 +343,12 @@ const Home = () => {
             src={AI}
             alt="AI"
             style={{
-              width: "30%",
+              width: height,
             }}
           />
-          <Box 
+          <Box
             sx={{
-              width:'58%'
+              width: {lg:'90%', xs:'100%'},
             }}
           >
             <Typography fontSize={32} fontWeight={700}>
@@ -315,30 +357,47 @@ const Home = () => {
             <Typography
               variant="body2"
               sx={{
-                marginY:'1rem'
+                marginY: "1rem",
               }}
             >
-            AI Dermatologist uses a deep machine learning algorithm (AI-algorithm). The human ability to learn from examples and experiences has been transferred to a computer. For this purpose, the neural network has been trained using a dermoscopic imaging database containing tens of thousands of examples that have confirmed diagnosis and assessment by dermatologists. 
-            </Typography>
-            <Typography
-            variant="body2"
-            sx={{
-              marginY:'1rem'
-            }}
-            >
-            The AI is able to distinguish between benign and malignant tumors, similar to the ABCDE rule (5 main signs of oncology: asymmetry, boundary, color, diameter, and change over time). The difference between them is that the algorithm can analyze thousands of features, but not only 5 of them. Of course, only a machine can detect that amount of evidence.
+              AI Dermatologist uses a deep machine learning algorithm
+              (AI-algorithm). The human ability to learn from examples and
+              experiences has been transferred to a computer. For this purpose,
+              the neural network has been trained using a dermoscopic imaging
+              database containing tens of thousands of examples that have
+              confirmed diagnosis and assessment by dermatologists.
             </Typography>
             <Typography
               variant="body2"
               sx={{
-                marginY:'1rem'
+                marginY: "1rem",
               }}
             >
-            Due to the productive cooperation with doctors, the quality of the algorithm performance is constantly being improved. Based on growing experience and its own autonomous rules, the AI is able to distinguish between benign and malignant tumors, find risks of human papillomavirus, and classify different types of acne…
+              The AI is able to distinguish between benign and malignant tumors,
+              similar to the ABCDE rule (5 main signs of oncology: asymmetry,
+              boundary, color, diameter, and change over time). The difference
+              between them is that the algorithm can analyze thousands of
+              features, but not only 5 of them. Of course, only a machine can
+              detect that amount of evidence.
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                marginY: "1rem",
+              }}
+            >
+              Due to the productive cooperation with doctors, the quality of the
+              algorithm performance is constantly being improved. Based on
+              growing experience and its own autonomous rules, the AI is able to
+              distinguish between benign and malignant tumors, find risks of
+              human papillomavirus, and classify different types of acne…
             </Typography>
           </Box>
         </Box>
         {/* AI Info Section end */}
+        {/* Footer start */}
+        
+        {/* Footer end */}
       </Container>
 
       {/* Drawer start */}
