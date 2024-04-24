@@ -23,11 +23,7 @@ const Slider = () => {
       title: "Home",
       icon: <DashboardOutlinedIcon />,
     },
-    {
-      id: 2,
-      title: "test",
-      icon: <DashboardOutlinedIcon />,
-    },
+    
   ];
 
 

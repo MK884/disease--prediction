@@ -12,10 +12,14 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Box display={!isHomePage && 'flex'} height="100%">
+      <Box display={!isHomePage && 'flex'} 
+       sx={{
+        height: '100vh',
+        overflowY:!isHomePage && 'scroll',
+       }}
+      >
         {!isHomePage && <Slider />}
         <Box
-          bgcolor={!isHomePage && '#eee'}
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -26,9 +30,11 @@ const Layout = ({ children }) => {
           {isHomePage ? <Header /> : <DashHeader/>}
           <Box
             component="main"
+            bgcolor={!isHomePage && '#eee'}
             sx={{
               p: { xs: 1, md: 2, lg: 3 },
               flexGrow: 1,
+              overflowY: !isHomePage && 'scroll'
             }}
           >
             {children}

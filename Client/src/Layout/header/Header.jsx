@@ -8,7 +8,7 @@ export const Header = () => {
             sx={{
                 bgcolor:'#121212',
                 color:'#fff',
-                padding:"1rem"
+                padding:"1rem",
             }}  
         >
             Skin disease classification Dashboard

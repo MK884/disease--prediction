@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Button, Container, Typography } from "@mui/material";
 import axios from "axios";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -25,19 +25,29 @@ const Check = () => {
   const uploadImage = async () => {
     try {
       const formData = new FormData();
-      console.log(image);
+      // console.log(image);
       formData.append("file", image);
 
       const res = await axios.post("http://localhost:8000/classify", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      console.log("Image uploader successfully", res);
+      // console.log("Image uploader successfully", res);
       // if(res.class === "mistakenly provided wrong image, probably.") 
-      setResult({ class: res.data.class, confidence: res.data.confidence });
+      // console.log(res.data.class_predictions);
+      setResult( res.data.class_predictions);
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    // Log the result whenever it changes
+    console.log(result);
+    result && Object.entries(result).map(([key, val])=>{
+      console.log(key, val);
+    })
+    
+  }, [result]);
 
   return (
     <>
@@ -121,7 +131,7 @@ const Check = () => {
               />
               <Typography>Click here to Upload Browse Media </Typography>
             </Box>
-            <Box
+            {/* <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -129,7 +139,7 @@ const Check = () => {
                 justifyContent: "center",
                 width: "100%",
               }}
-            ></Box>
+            ></Box> */}
           </>
         )}
       </Container>
