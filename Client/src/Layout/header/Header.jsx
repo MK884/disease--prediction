@@ -11,7 +11,7 @@ export const Header = () => {
                 padding:"1rem"
             }}  
         >
-            Header    
+            Skin disease classification Dashboard
         </Box>    
     </>
   )
