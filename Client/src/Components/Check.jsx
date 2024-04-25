@@ -3,8 +3,17 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import axios from "axios";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import ShowResult from "./ShowResult";
+import { useModel } from "../../toolkit/hook/useModel.js";
+import { useSelector } from "react-redux";
+
 
 const Check = () => {
+
+  const formData = new FormData();
+  const classifyImage = useModel();
+
+  const { predictions, isReady } = useSelector(state => state.prediction)
+
   const dropImage = () => {
     document.querySelector(".input-field").click();
   };
@@ -22,32 +31,38 @@ const Check = () => {
     }
   };
 
+  let res=''
+  
   const uploadImage = async () => {
     try {
-      const formData = new FormData();
-      // console.log(image);
       formData.append("file", image);
+      await classifyImage(formData);
+      console.log(predictions.payload);
 
-      const res = await axios.post("http://localhost:8000/classify", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      // console.log("Image uploader successfully", res);
-      // if(res.class === "mistakenly provided wrong image, probably.") 
-      // console.log(res.data.class_predictions);
-      setResult( res.data.class_predictions);
+      console.log("clear");
+      // console.log(state);
+     
     } catch (error) {
       console.log(error);
     }
   };
 
+
+   // const res = await axios.post("http://localhost:8000/classify", formData, {
+      //   headers: { "Content-Type": "multipart/form-data" },
+      // });
+      // console.log("Image uploader successfully", res);
+      // if(res.class === "mistakenly provided wrong image, probably.") 
+      // console.log(res.data.class_predictions);
+      // setResult( res.data.class_predictions);
+
+
   useEffect(() => {
     // Log the result whenever it changes
-    console.log(result);
-    result && Object.entries(result).map(([key, val])=>{
-      console.log(key, val);
-    })
+    // predictions && console.log(predictions.payload);
+    setResult(isReady)
     
-  }, [result]);
+  }, [predictions,isReady]);
 
   return (
     <>

@@ -60,7 +60,10 @@ async def classify(file: UploadFile = File(...)):
         for i, class_name in enumerate(CLASS_NAMES):
             class_predictions[class_name] = float(predictions[0][i])
         
-        return {"class_predictions": class_predictions}
+        prediction_class = CLASS_NAMES[np.argmax(predictions[0])]
+        confidence = np.max(predictions[0])
+        
+        return {"class_predictions": class_predictions,'predicted_class':prediction_class}
         if confidence > 0.6:
             return {"class": prediction_class,
                 "confidence": float(confidence)
@@ -72,7 +75,7 @@ async def classify(file: UploadFile = File(...)):
             }
     except Exception as e:
         # Log any errors that occur during classification
-        logging.error(f"Error occurred during classification: {str(e)}")
+        # logging.error(f"Error occurred during classification: {str(e)}")
         return {"error": "An error occurred during classification"}
     # prediction_class = CLASS_NAMES[np.argmax(predictions[0])]
     # confidence = np.max(predictions[0])
