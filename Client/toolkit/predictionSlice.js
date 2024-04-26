@@ -14,6 +14,7 @@ export const predictionSlice = createSlice({
     predictedClass: null,
     confidence: null,
     error: false,
+    isOpen:true
   },
   reducers: {
     addPrediction: (state, action) => {
@@ -36,9 +37,12 @@ export const predictionSlice = createSlice({
       state.error = false,
       state.confidence = null
     },
+    closeGuide: (state)=>{
+      state.isOpen = false;
+    }
   },
 });
 
-export const { addPrediction, resetAll } = predictionSlice.actions;
+export const { addPrediction, resetAll, closeGuide } = predictionSlice.actions;
 
 export default predictionSlice.reducer;

@@ -38,7 +38,7 @@ const Slider = () => {
           width: sliderwidth,
           overflow: "hidden",
           position:'relative',
-          transition:"width 0.3s ease-in-out "
+          transition:"width 0.3s ease-in-out ",
         }}
         variant="elevation"
         color="#111"
@@ -62,8 +62,7 @@ const Slider = () => {
           <Tooltip
           title={list.title}
           placement="right"
-          
-          
+          key={list.id}          
           >
           <ListItem
             key={list.id}

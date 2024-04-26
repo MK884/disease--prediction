@@ -2,7 +2,7 @@ import { Typography, Box } from "@mui/material";
 import React from "react";
 import FeatureCard from "../FeatureCard";
 import Skin from "../../assets/skin.png";
-import Chatbot from "../../assets/chatbot.png";
+import Guidence from "../../assets/inspiration.png";
 import Analytics from "../../assets/analytics.png";
 
 
@@ -12,9 +12,9 @@ const FeaturesSection = () => {
     const Features = [
         {
           id: 1,
-          icon: Chatbot,
-          title: "Interactive Chatbot",
-          desc: "Solve your queries by interacting with our bot.",
+          icon: Guidence,
+          title: "Useful Guide",
+          desc: "Follow the Guidence to reduce the risks",
         },
         {
           id: 2,

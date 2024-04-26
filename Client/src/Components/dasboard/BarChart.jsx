@@ -61,7 +61,7 @@ const BarChart = () => {
         options={predictionsOptions}
         series={series}
         type="bar"
-        width={500}
+        width={600}
         height={320}
       />
       </Paper>
