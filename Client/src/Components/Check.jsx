@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, Container, Typography } from "@mui/material";
-import axios from "axios";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import ShowResult from "./ShowResult";
 import { useModel } from "../../toolkit/hook/useModel.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { resetAll } from "../../toolkit/predictionSlice.js";
+
 
 
 const Check = () => {
 
   const formData = new FormData();
   const classifyImage = useModel();
+  const dispatch = useDispatch();
 
   const { predictions, isReady } = useSelector(state => state.prediction)
 
@@ -31,13 +33,12 @@ const Check = () => {
     }
   };
 
-  let res=''
   
   const uploadImage = async () => {
     try {
       formData.append("file", image);
       await classifyImage(formData);
-      console.log(predictions.payload);
+      // console.log(predictions.payload);
 
       console.log("clear");
       // console.log(state);
@@ -58,11 +59,13 @@ const Check = () => {
 
 
   useEffect(() => {
-    // Log the result whenever it changes
-    // predictions && console.log(predictions.payload);
     setResult(isReady)
-    
+    predictions && console.log(predictions.payload);
   }, [predictions,isReady]);
+
+  const setResultHandler = () =>{
+    dispatch(resetAll())
+  }
 
   return (
     <>
@@ -78,15 +81,13 @@ const Check = () => {
         {result ? (
           <>
             <ShowResult
-              className={result.class}
-              Confidence={result.confidence}
               imageURL={imageURL}
             />
             <Button
               variant="contained"
               onClick={() => {
                 setImage(null);
-                setResult(null);
+                setResultHandler();
               }}
             >
               Reset

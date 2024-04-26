@@ -2,11 +2,16 @@ import { Box, Paper, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
+import { useSelector } from "react-redux";
 
-const ShowResult = ({ className, Confidence, imageURL }) => {
-  const [confidence, setConfidence] = useState("");
+const ShowResult = ({ imageURL }) => {
+  const [isConfidence, setConfidence] = useState("");
   const [ColorLevel, setColorLevel] = useState("");
-  const [error, setError] = useState(false);
+  const [isError, setError] = useState(false);
+
+  const { predictedClass, confidence } = useSelector(state => state.prediction)
+
+  
 
   // disease information
   const DiseaseLinks = {
@@ -29,17 +34,17 @@ const ShowResult = ({ className, Confidence, imageURL }) => {
   };
 
   useEffect(() => {
-    let level = Math.floor(Confidence * 100);
+    let level = Math.floor(confidence * 100);
     setConfidence(level);
     if (level < 99) {
       setError(true);
       setOpen(true);
     }
     setColorLevel(level <= 60 ? "#E64A4A" : level < 90 ? "#f1c80b" : "#1678F2");
-  }, [Confidence, className]);
+  }, [confidence, predictedClass]);
   return (
     <>
-      {error && (
+      {isError && (
         <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
             Error Wrong Image Provided
@@ -80,11 +85,11 @@ const ShowResult = ({ className, Confidence, imageURL }) => {
           You Have{" "}
           <span
             style={{
-              color: error ? "red" : "#1678F2",
+              color: isError ? "red" : "#1678F2",
               fontWeight: 600,
             }}
           >
-            {className}
+            {predictedClass}
           </span>
         </Typography>
         <Typography
@@ -95,10 +100,10 @@ const ShowResult = ({ className, Confidence, imageURL }) => {
           }}
         >
           <span>Confidence</span>
-          <span>{confidence} %</span>
+          <span>{isConfidence} %</span>
         </Typography>
 
-        {error ? (
+        {isError ? (
           <Typography variant="subtitle2">
             Please click on Restet button ⏬ and Upload Correct Image
           </Typography>
@@ -115,23 +120,13 @@ const ShowResult = ({ className, Confidence, imageURL }) => {
                 "&::before": {
                   content: '""',
                   position: "absolute",
-                  width: `${confidence}%`,
+                  width: `${isConfidence}%`,
                   backgroundColor: `${ColorLevel}`,
                   height: "100%",
                   borderRadius: "8px",
                 },
               }}
             ></Box>
-            <a
-              style={{
-                textDecoration: "none",
-                color: "#1678F2",
-              }}
-              href={DiseaseLinks[className]}
-              target="_blank"
-            >
-              Know More about {className}
-            </a>
           </>
         )}
       </Paper>

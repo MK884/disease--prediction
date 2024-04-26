@@ -5,26 +5,36 @@ import { useDispatch } from "react-redux";
 import { addPrediction } from "../predictionSlice";
 import axios from "axios";
 
-
 export const useModel = () => {
   const dispatch = useDispatch();
 
   const classifyImage = async (formData) => {
-    // dispatch(addPrediction({ type: UPLOAD_IMAGE_REQUEST }));
     try {
       const res = await axios.post("http://localhost:8000/classify", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-    // console.log(res);
+      // console.log(res);
 
+      if (res.data.confidence != 0) {
+        dispatch(
+          addPrediction({
+            type: UPLOAD_IMAGE_SUCCESS,
+            payload: Object.values(res.data.class_predictions),
+            predictedClass: res.data.predicted_class,
+            confidence: res.data.confidence,
+          })
+        );
+      } else {
+        dispatch(
+          addPrediction({
+            type: UPLOAD_IMAGE_FAILURE,
+            predictedClass: res.data.predicted_class,
+            confidence: res.data.confidence,
 
-      dispatch(
-        addPrediction({
-          type: UPLOAD_IMAGE_SUCCESS,
-          payload: res.data.class_predictions,
-        })
-      );
+          })
+        );
+      }
     } catch (error) {
       dispatch(
         addPrediction({
@@ -34,7 +44,6 @@ export const useModel = () => {
       );
     }
   };
-
 
   return classifyImage;
 };

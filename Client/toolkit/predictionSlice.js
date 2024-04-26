@@ -11,19 +11,34 @@ export const predictionSlice = createSlice({
   initialState: {
     predictions: null,
     isReady: false,
-    error: null,
+    predictedClass: null,
+    confidence: null,
+    error: false,
   },
   reducers: {
     addPrediction: (state, action) => {
-      // console.log(action.payload.type);
       if (action.payload.type === UPLOAD_IMAGE_SUCCESS) {
         state.isReady = true;
         state.predictions = action.payload;
+        state.predictedClass = action.payload.predictedClass;
+        state.confidence = action.payload.confidence;
+      }else{
+        state.error = true;
+        state.isReady = true;
+        state.confidence = action.payload.confidence;
+        state.predictedClass = action.payload.predictedClass;
       }
+    },
+    resetAll: (state) => {
+      state.isReady = false;
+      state.predictions = null;
+      state.predictedClass = null;
+      state.error = false,
+      state.confidence = null
     },
   },
 });
 
-export const { addPrediction } = predictionSlice.actions;
+export const { addPrediction, resetAll } = predictionSlice.actions;
 
 export default predictionSlice.reducer;

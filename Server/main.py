@@ -62,33 +62,16 @@ async def classify(file: UploadFile = File(...)):
         
         prediction_class = CLASS_NAMES[np.argmax(predictions[0])]
         confidence = np.max(predictions[0])
-        
-        return {"class_predictions": class_predictions,'predicted_class':prediction_class}
+
         if confidence > 0.6:
-            return {"class": prediction_class,
-                "confidence": float(confidence)
-            
-                }
+            return {"class_predictions": class_predictions,'predicted_class':prediction_class, 'confidence':float(confidence)}
         else:
-            return {"class": "mistakenly provided wrong image, probably.",
+            return {"class_predictions": '',"predicted_class": "mistakenly provided wrong image, probably.",
             "confidence": 0
             }
     except Exception as e:
-        # Log any errors that occur during classification
-        # logging.error(f"Error occurred during classification: {str(e)}")
         return {"error": "An error occurred during classification"}
-    # prediction_class = CLASS_NAMES[np.argmax(predictions[0])]
-    # confidence = np.max(predictions[0])
-    # print(type(confidence), confidence)
-    # if confidence > 0.6:
-    #     return {"class": prediction_class,
-    #         "confidence": float(confidence)
-            
-    #         }
-    # else:
-    #     return {"class": "mistakenly provided wrong image, probably.",
-    #         "confidence": 0
-    #         }
+    
 
 
 if __name__ == "__main__":
