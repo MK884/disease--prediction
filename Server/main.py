@@ -32,17 +32,6 @@ def read_file_as_image(data) -> np.ndarray:
 async def ping():
     return "Hello Connected"   
 
-# @app.post("/classify")
-# async def classify(file: UploadFile = File(...)):
-#     image = read_file_as_image(await file.read())
-#     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # Convert from BGR to RGB
-#     image_batch = np.expand_dims(image,0)
-#     predictions = MODEL.predict(image_batch)
-#     prediction_class = CLASS_NAMES[np.argmax(predictions[0])]
-#     confidense = np.max(predictions[0])
-#     return {"class": prediction_class,
-#             "confidense": float(confidense)
-#             }
 
 @app.post("/classify")
 async def classify(file: UploadFile = File(...)):
