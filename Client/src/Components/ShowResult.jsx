@@ -7,19 +7,9 @@ import { useSelector } from "react-redux";
 const ShowResult = ({ imageURL }) => {
   const [isConfidence, setConfidence] = useState("");
   const [ColorLevel, setColorLevel] = useState("");
-  const [isError, setError] = useState(false);
 
-  const { predictedClass, confidence } = useSelector(state => state.prediction)
+  const { predictedClass, confidence, error } = useSelector(state => state.prediction)
 
-  
-
-  // disease information
-  const DiseaseLinks = {
-    Eczema: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3221201/",
-    Melanoma: "https://www.ncbi.nlm.nih.gov/books/NBK470409/",
-    "Basal Cell Carcinoma": "https://www.ncbi.nlm.nih.gov/books/NBK482439/",
-    "Melanocytic Nevi": "https://www.ncbi.nlm.nih.gov/books/NBK470451/",
-  };
 
   const [open, setOpen] = React.useState(false);
 
@@ -37,14 +27,13 @@ const ShowResult = ({ imageURL }) => {
     let level = Math.floor(confidence * 100);
     setConfidence(level);
     if (level < 99) {
-      setError(true);
       setOpen(true);
     }
     setColorLevel(level <= 60 ? "#E64A4A" : level < 90 ? "#f1c80b" : "#1678F2");
   }, [confidence, predictedClass]);
   return (
     <>
-      {isError && (
+      {error && (
         <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
             Error Wrong Image Provided
@@ -85,7 +74,7 @@ const ShowResult = ({ imageURL }) => {
           You Have{" "}
           <span
             style={{
-              color: isError ? "red" : "#1678F2",
+              color: error ? "red" : "#1678F2",
               fontWeight: 600,
             }}
           >
@@ -103,7 +92,7 @@ const ShowResult = ({ imageURL }) => {
           <span>{isConfidence} %</span>
         </Typography>
 
-        {isError ? (
+        {error ? (
           <Typography variant="subtitle2">
             Please click on Restet button ⏬ and Upload Correct Image
           </Typography>

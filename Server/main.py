@@ -52,7 +52,7 @@ async def classify(file: UploadFile = File(...)):
         prediction_class = CLASS_NAMES[np.argmax(predictions[0])]
         confidence = np.max(predictions[0])
 
-        if confidence > 0.6:
+        if confidence > 0.5:
             return {"class_predictions": class_predictions,'predicted_class':prediction_class, 'confidence':float(confidence)}
         else:
             return {"class_predictions": '',"predicted_class": "mistakenly provided wrong image, probably.",

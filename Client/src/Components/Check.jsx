@@ -49,15 +49,6 @@ const Check = () => {
   };
 
 
-   // const res = await axios.post("http://localhost:8000/classify", formData, {
-      //   headers: { "Content-Type": "multipart/form-data" },
-      // });
-      // console.log("Image uploader successfully", res);
-      // if(res.class === "mistakenly provided wrong image, probably.") 
-      // console.log(res.data.class_predictions);
-      // setResult( res.data.class_predictions);
-
-
   useEffect(() => {
     setResult(isReady)
     predictions && console.log(predictions.payload);
